@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     #-----Setup do job-----
-    - run: cd ./app && npm install && ng build
+    - run: cd ./app && npm install && npm run build
 
   test:
     name: Run tests
