@@ -71,5 +71,5 @@ jobs:
         committer: ${{env.GIT_COMMIT_COMMITTER }}
         author: ${{env.GIT_COMMIT_COMMITTER }}
         body: PR gerado automáticamente pela esteira
-        token: ${{secrets.GITHUB_TOKEN}}
+        token: ${{secrets.TOKEN}}
         delete-branch: false
