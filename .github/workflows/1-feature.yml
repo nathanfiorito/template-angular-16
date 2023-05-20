@@ -63,13 +63,15 @@ jobs:
     - uses: rlespinasse/git-commit-data-action@v1
       name: extract git commit data
 
-    - uses: peter-evans/create-pull-request@v5.0.1
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+      id: extract_branch
+
+    - uses: desbravacloud/action-create-pull-requests@v1
       name: pull-request
       with:
-        branch: "develop"
-        title: "Pulling ${{ env.GIT_COMMIT_MESSAGE_SUBJECT  }} into develop"
-        committer: ${{env.GIT_COMMIT_COMMITTER }}
-        author: ${{env.GIT_COMMIT_COMMITTER }}
-        body: PR gerado automáticamente pela esteira
-        token: ${{secrets.GITHUB_TOKEN}}
-        delete-branch: false
+        origin-branch: ${{steps.extract_branch.outputs.branch}}
+        target-branch: "develop"
+        custom-title: "Pulling ${{ env.GIT_COMMIT_MESSAGE_SUBJECT  }} into develop"
+        custom-body: PR gerado automáticamente pela esteira
